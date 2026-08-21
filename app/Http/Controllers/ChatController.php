@@ -251,7 +251,7 @@ I would be happy to help you book an appointment! Please provide the following d
                     $careModel = $modelTelehealth ?: 'E-Appointments';
                     $careModelLower = strtolower($careModel);
                     $isTelehealth = true;
-                } else {
+                } else  {
                     $sunHoursText = !empty($sundayHours) ? $sundayHours : 'Closed (E-Appointments Only)';
                     return response()->json([
                         'success' => true,
