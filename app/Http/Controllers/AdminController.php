@@ -638,7 +638,8 @@ class AdminController extends Controller
     public function homeSpecialists()
     {
         $specialists = Specialist::orderBy('order')->get();
-        return view('admin.home.specialists', compact('specialists'));
+        $settings = Setting::all()->pluck('value', 'key');
+        return view('admin.home.specialists', compact('specialists', 'settings'));
     }
 
     public function storeSpecialist(Request $request)

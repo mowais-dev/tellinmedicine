@@ -347,11 +347,15 @@
     <div class="container">
 
       <div class="section-header text-center" style="text-align: center; max-width: 720px; margin: 0 auto 3.5rem;">
-        <span class="badge-clay" >🩺 Expert Care Team</span>
-        <h2 class="section-title" style="color: #0f172a; font-size: 2.5rem; font-weight: 800; margin-top: 0.75rem; margin-bottom: 1rem;">Meet Our Specialists</h2>
-        <p class="section-subtitle" style="color: #475569; font-size: 1.05rem; line-height: 1.6;">
-          Board-certified medical specialists dedicated to delivering compassionate primary care, virtual care, and in-home physician visits.
-        </p>
+        @if(!empty($globalSettings['specialists_badge']))
+          <span class="badge-clay">{{ $globalSettings['specialists_badge'] }}</span>
+        @endif
+        <h2 class="section-title" style="color: #0f172a; font-size: 2.5rem; font-weight: 800; margin-top: 0.75rem; margin-bottom: 1rem;">{{ $globalSettings['specialists_title'] ?? 'Meet Our Specialists' }}</h2>
+        @if(!empty($globalSettings['specialists_subtitle']))
+          <p class="section-subtitle" style="color: #475569; font-size: 1.05rem; line-height: 1.6;">
+            {{ $globalSettings['specialists_subtitle'] }}
+          </p>
+        @endif
       </div>
 
       @if(!empty($specialists) && count($specialists) > 0)
@@ -386,15 +390,10 @@
 
               <!-- Description / Details -->
               @if(!empty($spec->description))
-                <p style="font-size: 0.88rem; color: #475569; line-height: 1.6; margin-bottom: 1.5rem; flex-grow: 1;">
+                <p style="font-size: 0.88rem; color: #475569; line-height: 1.6; margin-bottom: 0;">
                   {{ $spec->description }}
                 </p>
               @endif
-
-              <!-- CTA Button to Book with Specialist -->
-              <button class="clay-button clay-button-primary js-open-booking" style="width: 100%; margin-top: auto; padding: 0.65rem 1.2rem; font-size: 0.88rem;">
-                📅 Book Appointment
-              </button>
             </div>
           @endforeach
         </div>
@@ -527,14 +526,16 @@
           <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 55%); display: flex; flex-direction: column; justify-content: space-between; padding: 1.5rem;">
             
             <!-- Top Glassmorphic Facility Badge with Backdrop Filter Blur -->
-            <div style="align-self: flex-start; background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1.5px solid rgba(255, 255, 255, 0.6); color: #ffffff; padding: 0.4rem 0.95rem; border-radius: 20px; font-size: 0.82rem; font-weight: 800; text-shadow: 0 1px 3px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 0.4rem;">
-              🏢 Clinic Facility
-            </div>
+            @if(!empty($globalSettings['contact_facility_badge']))
+              <div style="align-self: flex-start; background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1.5px solid rgba(255, 255, 255, 0.6); color: #ffffff; padding: 0.4rem 0.95rem; border-radius: 20px; font-size: 0.82rem; font-weight: 800; text-shadow: 0 1px 3px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 0.4rem;">
+                {{ $globalSettings['contact_facility_badge'] }}
+              </div>
+            @endif
 
             <!-- Bottom Content: Clinic Title & Address -->
             <div style="color: #ffffff;">
               <h3 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-bottom: 0.3rem; text-shadow: 0 2px 6px rgba(0,0,0,0.9);">
-                {{ $globalSettings['brand_name'] ?? 'TELLinMedicine' }} Clinic
+                {{ $globalSettings['contact_building_title'] ?? (($globalSettings['brand_name'] ?? 'TELLin') . ' Clinic') }}
               </h3>
 
               <p style="font-size: 0.92rem; color: #ffffff; font-weight: 600; line-height: 1.4; margin: 0; text-shadow: 0 2px 5px rgba(0,0,0,0.9);">
