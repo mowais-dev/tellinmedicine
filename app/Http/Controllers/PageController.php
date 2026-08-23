@@ -43,4 +43,11 @@ class PageController extends Controller
 
         return view('philosophy', compact('hero', 'philosophy', 'pillars'));
     }
+
+    public function concierge()
+    {
+        $hero = HeroSection::where('page', 'concierge')->first();
+
+        return view('concierge', compact('hero'));
+    }
 }

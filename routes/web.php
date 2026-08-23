@@ -18,6 +18,9 @@ Route::get('/education.html', [PageController::class, 'education']);
 Route::get('/philosophy', [PageController::class, 'philosophy'])->name('philosophy');
 Route::get('/philosophy.html', [PageController::class, 'philosophy']);
 
+Route::get('/concierge', [PageController::class, 'concierge'])->name('concierge');
+Route::get('/concierge.html', [PageController::class, 'concierge']);
+
 // Appointment Booking Endpoint
 Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
 

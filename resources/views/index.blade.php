@@ -403,6 +403,40 @@
     </div>
   </section>
 
+  <!-- Concierge Medicine Teaser Banner Section (Full Width, Increase Height, Gold Hover) -->
+  <section id="concierge-banner" class="concierge-teaser-section">
+    <a href="{{ url('/concierge') }}" class="concierge-teaser-card">
+      <div class="teaser-content-wrapper">
+        
+        <!-- Left Column: Icon + Text -->
+        <div class="teaser-left">
+          <div class="teaser-icon-box">
+            💎
+          </div>
+          <div class="teaser-text-box">
+            <span class="teaser-badge">
+              VIP CARE MEMBERSHIP
+            </span>
+            <h3 class="teaser-title">
+              Concierge Medicine & Direct Primary Care
+            </h3>
+            <p class="teaser-subtitle">
+              Unlimited office visits, 24/7 direct physician access, zero wait times & annual wellness packages.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Column: Button -->
+        <div class="teaser-right">
+          <span class="clay-button clay-button-secondary teaser-btn">
+            <span>Explore Concierge Plans</span> ➔
+          </span>
+        </div>
+
+      </div>
+    </a>
+  </section>
+
   <!-- Contact & Location Section -->
   <section id="contact" style="padding: 6rem 0; background: var(--clay-card-bg);">
     <div class="container">

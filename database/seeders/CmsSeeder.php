@@ -118,11 +118,12 @@ class CmsSeeder extends Seeder
         // 2. Navigation Items
         NavigationItem::truncate();
         NavigationItem::create(['label' => 'Home', 'url' => '/#hero', 'order' => 1]);
-        NavigationItem::create(['label' => 'Meet Dr. Jasper Ngomba', 'url' => '/#doctor', 'order' => 2]);
-        NavigationItem::create(['label' => 'Our Philosophy', 'url' => '/philosophy', 'order' => 3]);
-        NavigationItem::create(['label' => 'Patient Education', 'url' => '/education', 'order' => 4]);
-        NavigationItem::create(['label' => 'Contact Us', 'url' => '/#contact', 'order' => 5]);
-        NavigationItem::create(['label' => 'Schedule Appointment', 'url' => '#booking', 'is_cta' => true, 'care_model' => 'In-Clinic', 'order' => 6]);
+        NavigationItem::create(['label' => 'Concierge Medicine', 'url' => '/concierge', 'order' => 2]);
+        NavigationItem::create(['label' => 'Meet Dr. Jasper Ngomba', 'url' => '/#doctor', 'order' => 3]);
+        NavigationItem::create(['label' => 'Our Philosophy', 'url' => '/philosophy', 'order' => 4]);
+        NavigationItem::create(['label' => 'Patient Education', 'url' => '/education', 'order' => 5]);
+        NavigationItem::create(['label' => 'Contact Us', 'url' => '/#contact', 'order' => 6]);
+        NavigationItem::create(['label' => 'Schedule Appointment', 'url' => '#booking', 'is_cta' => true, 'care_model' => 'In-Clinic', 'order' => 7]);
 
         // Service Categories
         ServiceCategory::truncate();
@@ -148,6 +149,17 @@ class CmsSeeder extends Seeder
             'badge1_sub' => 'Internal Medicine MD',
             'badge2_title' => 'World TeleMedicine',
             'badge2_sub' => 'Virtual Queue Active',
+        ]);
+
+        HeroSection::create([
+            'page' => 'concierge',
+            'badge' => 'Exclusive Patient Care',
+            'title' => "CHOOSE THE PLAN THAT'S",
+            'title_highlight' => 'RIGHT FOR YOU!',
+            'subtitle' => "We offer the Gold, Platinum, & Diamond Concierge Medicine plans based on your family's anticipated healthcare needs. No matter the plan you choose, you will be offered quick access to medical care and have the peace of mind that your healthcare is always our #1 priority!",
+            'image_path' => 'images/concierge_clay_icon.png',
+            'primary_button_text' => 'Explore Plans & Pricing',
+            'secondary_button_text' => 'Schedule Concierge Consultation',
         ]);
 
         HeroSection::create([
