@@ -854,6 +854,7 @@
       }
     }
   </style>
+  @stack('styles')
 </head>
 <body class="admin-panel">
 
@@ -1099,6 +1100,23 @@
         </div>
       @endif
 
+      @if(session('error'))
+        <div class="alert-danger" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; padding: 0.85rem 1.25rem; border-radius: 10px; margin-bottom: 1.25rem; font-size: 0.9rem;">
+          <i class="fa-solid fa-circle-exclamation"></i> {{ session('error') }}
+        </div>
+      @endif
+
+      @if($errors->any())
+        <div class="alert-danger" style="background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; padding: 0.85rem 1.25rem; border-radius: 10px; margin-bottom: 1.25rem; font-size: 0.9rem;">
+          <i class="fa-solid fa-triangle-exclamation"></i> <strong>Please correct the following errors:</strong>
+          <ul style="margin-top: 0.4rem; padding-left: 1.2rem; margin-bottom: 0;">
+            @foreach($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
       @yield('content')
     </div>
   </div>
@@ -1161,5 +1179,6 @@
       });
     });
   </script>
+  @stack('scripts')
 </body>
 </html>

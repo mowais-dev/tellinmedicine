@@ -137,6 +137,16 @@
       </div>
 
       <div class="form-group">
+        <label class="form-label">Building Photo Overlay Badge</label>
+        <input type="text" name="contact_facility_badge" class="form-control" value="{{ $settings['contact_facility_badge'] ?? '🏢 Clinic Facility' }}" placeholder="e.g. 🏢 Clinic Facility">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Building Photo Overlay Title</label>
+        <input type="text" name="contact_building_title" class="form-control" value="{{ $settings['contact_building_title'] ?? 'TELLin Clinic' }}" placeholder="e.g. TELLin Clinic">
+      </div>
+
+      <div class="form-group">
         <label class="form-label">Google Maps Custom Embed URL (Optional)</label>
         <input type="text" name="google_map_embed_url" class="form-control" value="{{ $settings['google_map_embed_url'] ?? '' }}" placeholder="Leave blank to automatically embed mapped clinic address">
         <small style="color: var(--text-muted); font-size: 0.78rem;">If left empty, Google Maps will automatically pin the Clinic Address set above.</small>
