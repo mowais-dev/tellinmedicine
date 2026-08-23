@@ -56,9 +56,15 @@ class CmsSeeder extends Seeder
             'services_title' => 'Comprehensive Medical Offerings',
             'services_subtitle' => 'Accepting most commercial insurances and Medicare. Tailored internal medicine solutions for every stage of adult health.',
 
+            'specialists_badge' => '🩺 Expert Care Team',
+            'specialists_title' => 'Meet Our Specialists',
+            'specialists_subtitle' => 'Board-certified medical specialists dedicated to delivering compassionate primary care, virtual care, and in-home physician visits.',
+
             'contact_badge' => 'Get in Touch',
             'contact_title' => 'Visit or Contact TELLinMedicine',
             'contact_subtitle' => 'Located in North Attleboro, MA. We welcome new patients and accept most major insurances.',
+            'contact_facility_badge' => '🏢 Clinic Facility',
+            'contact_building_title' => 'TELLin Clinic',
             'contact_card_title' => 'Contact Details',
             'contact_form_title' => 'Send Us a Message',
             'contact_form_label_name' => 'Your Full Name',
