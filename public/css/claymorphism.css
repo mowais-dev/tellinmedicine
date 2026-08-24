@@ -66,7 +66,7 @@ html {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background-color: var(--bg-main);
   color: var(--text-dark);
-  overflow-x: hidden !important;
+  overflow-x: clip;
   width: 100%;
   max-width: 100vw;
 }
@@ -75,7 +75,7 @@ body {
   line-height: 1.6;
   background: radial-gradient(circle at 10% 20%, #f0f7fc 0%, #e5f0f7 90%);
   min-height: 100vh;
-  overflow-x: hidden !important;
+  overflow-x: clip;
   width: 100%;
   max-width: 100vw;
   position: relative;
@@ -1776,10 +1776,11 @@ img {
 }
 
 .services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 380px));
-  gap: 2rem;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  align-items: stretch;
+  gap: 2rem;
 }
 
 .service-card {
@@ -1791,8 +1792,17 @@ img {
   box-shadow: 0 16px 32px rgba(0, 60, 50, 0.25), inset 2px 2px 4px rgba(255, 255, 255, 0.9);
   border: 2px solid #ffffff;
   transition: var(--transition-clay);
+  flex: 0 1 365px;
   width: 100%;
-  max-width: 380px;
+  max-width: 365px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .service-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
 }
 
 .service-card:hover {
@@ -1976,13 +1986,13 @@ img {
 
 .modal-clay-dialog {
   width: 100%;
-  max-width: 680px;
+  max-width: 620px;
   background: var(--clay-card-bg);
   border-radius: var(--radius-xl);
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2), var(--clay-shadow-raised);
-  border: 5px solid #ffffff;
-  padding: 2.5rem;
-  max-height: 90vh;
+  border: 4px solid #ffffff;
+  padding: 1.5rem 1.75rem;
+  max-height: 92vh;
   overflow-y: auto;
   transform: scale(0.9) translateY(20px);
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -1996,7 +2006,8 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.75rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .modal-title {
@@ -2006,16 +2017,33 @@ img {
 .modal-close {
   width: 40px;
   height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  max-width: 40px;
+  max-height: 40px;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
   border-radius: 50%;
+  padding: 0;
   border: none;
   background: var(--clay-card-bg);
   box-shadow: var(--clay-shadow-flat);
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
+  line-height: 1;
   color: var(--text-medium);
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background: #ffffff;
+  box-shadow: var(--clay-shadow-raised);
+  color: #ef4444;
+  transform: scale(1.05);
 }
 
 .care-option-grid {
@@ -2265,10 +2293,10 @@ img {
   }
 
   .hero-section {
-    overflow: hidden !important;
-    max-width: 100vw !important;
+    overflow: visible !important;
+    max-width: 100% !important;
     width: 100% !important;
-    padding: 1.5rem 0 4rem !important;
+    padding: 1.5rem 0 3rem !important;
   }
 
   .hero-grid {
@@ -2277,20 +2305,20 @@ img {
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
-    gap: 2rem !important;
+    gap: 1.5rem !important;
   }
 
   .hero-text {
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
-    padding: 0 !important;
+    padding: 0 0.25rem !important;
     margin: 0 !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   .hero-title {
-    font-size: 2rem !important;
+    font-size: 1.95rem !important;
     line-height: 1.25 !important;
     word-break: break-word !important;
     overflow-wrap: break-word !important;
@@ -2325,9 +2353,10 @@ img {
     justify-content: center !important;
     text-align: center !important;
     white-space: normal !important;
-    font-size: 0.88rem !important;
+    font-size: 0.9rem !important;
     padding: 0.85rem 1rem !important;
     flex: none !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1) !important;
   }
 
   .hero-visual-stage {
@@ -2336,12 +2365,83 @@ img {
     box-sizing: border-box !important;
     overflow: hidden !important;
     margin-top: 1rem !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
 
+  .doctor-clay-frame,
   .hero-syringe-frame {
     width: 100% !important;
-    max-width: 280px !important;
+    max-width: 260px !important;
     margin: 0 auto !important;
+    position: relative !important;
+    right: auto !important;
+    left: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  /* Booking Modal Mobile Responsiveness */
+  .booking-grid-row {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.6rem !important;
+  }
+
+  #bookingModal .modal-clay-dialog {
+    padding: 1.25rem 1rem !important;
+    max-width: 94vw !important;
+    width: 94vw !important;
+    margin: 0 auto !important;
+  }
+
+  #bookingModal .modal-backdrop {
+    padding: 0.5rem !important;
+  }
+
+  #bookingModal .care-option-grid {
+    gap: 0.4rem !important;
+  }
+
+  #bookingModal .care-option-card {
+    padding: 0.6rem 0.35rem !important;
+  }
+
+  #bookingModal .care-option-icon {
+    font-size: 1.15rem !important;
+    margin-bottom: 0.15rem !important;
+  }
+
+  #bookingModal .care-option-title {
+    font-size: 0.72rem !important;
+    line-height: 1.15 !important;
+  }
+
+  #bookingModal .clay-input {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  #bookingModal .form-group {
+    margin-bottom: 0.55rem !important;
+  }
+
+  #bookingModal .modal-header {
+    margin-bottom: 0.75rem !important;
+  }
+
+  #bookingModal .modal-title {
+    font-size: 1.25rem !important;
+  }
+
+  #bookingModal #submitBookingBtn {
+    margin-top: 0.75rem !important;
+    padding: 0.65rem 1rem !important;
+    font-size: 0.9rem !important;
   }
 
   /* Hide floating badge elements on small mobile so they don't break horizontal screen bounds */
@@ -2780,7 +2880,7 @@ img {
 /* Prevent root overflow mutation layout jumps when SweetAlert or Modals open/close */
 html,
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 html.swal2-shown,
@@ -2792,7 +2892,7 @@ body.swal2-overflow-hidden {
   height: auto !important;
   min-height: 100% !important;
   overflow: visible !important;
-  overflow-x: hidden !important;
+  overflow-x: clip !important;
   padding-right: 0 !important;
 }
 
@@ -3233,10 +3333,17 @@ body.swal2-overflow-hidden {
   box-shadow: var(--clay-shadow-raised);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  position: sticky;
-  top: 120px;
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 115px !important;
+  align-self: start !important;
+  z-index: 10 !important;
   padding: 2.25rem 2rem !important;
   display: block;
+}
+
+.faq-image-card:hover {
+  transform: none !important;
 }
 
 .clinic-img-wrapper {
@@ -3604,7 +3711,74 @@ body.swal2-overflow-hidden {
   transform: translateX(8px);
 }
 
-/* Responsive Rules for Concierge */
+/* Responsive Rules for Concierge & Teaser Banner */
+@media (max-width: 992px) {
+  .concierge-teaser-card {
+    padding: 2.25rem 1.5rem !important;
+  }
+
+  .teaser-content-wrapper {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 1.5rem !important;
+  }
+
+  .teaser-left {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 1rem !important;
+  }
+
+  .teaser-text-box {
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .teaser-title {
+    font-size: 1.45rem !important;
+    text-align: center !important;
+  }
+
+  .teaser-subtitle {
+    font-size: 0.95rem !important;
+    text-align: center !important;
+  }
+
+  .teaser-right {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .teaser-btn {
+    width: 100% !important;
+    max-width: 320px !important;
+    justify-content: center !important;
+    white-space: normal !important;
+    padding: 0.85rem 1.5rem !important;
+    font-size: 0.98rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .concierge-teaser-card {
+    padding: 1.75rem 1rem !important;
+  }
+
+  .teaser-icon-box {
+    font-size: 2.2rem !important;
+    padding: 0.75rem 1rem !important;
+  }
+
+  .teaser-title {
+    font-size: 1.3rem !important;
+  }
+
+  .teaser-subtitle {
+    font-size: 0.88rem !important;
+  }
+}
+
 @media (max-width: 1024px) {
   .plans-grid {
     grid-template-columns: 1fr;
@@ -3618,7 +3792,9 @@ body.swal2-overflow-hidden {
   }
 
   .faq-image-card {
-    position: static;
+    position: relative !important;
+    top: auto !important;
+    align-self: auto !important;
   }
 
   .rates-cards-grid {

@@ -109,6 +109,18 @@ function getCareModelLabel(modelKey) {
   return modelKey || '';
 }
 
+function getNextWeekdayDateStr(dateStr) {
+  let dObj = dateStr ? new Date(dateStr + 'T00:00:00') : new Date();
+  if (isNaN(dObj.getTime())) dObj = new Date();
+  if (dObj.getDay() === 0) {
+    dObj.setDate(dObj.getDate() + 1);
+  }
+  const y = dObj.getFullYear();
+  const m = String(dObj.getMonth() + 1).padStart(2, '0');
+  const d = String(dObj.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
 function handleHomeVisitEligibility(form) {
   if (!form) return;
   const careInput = form.querySelector('input[name="care_model"]');
@@ -148,6 +160,7 @@ function handleHomeVisitEligibility(form) {
 document.addEventListener('DOMContentLoaded', () => {
   initMobileNavigation();
   initBookingModal();
+  initConciergeSubscriptionModal();
   initBMICalculator();
   initServiceTabs();
   init3DParallax();
@@ -416,14 +429,6 @@ function initInteractiveCalendar() {
         hoursString = sundaySetting;
       } else {
         hoursString = window.practiceHoursConfig?.telehealthHours || '2 PM - 7 PM';
-      }
-
-      if (isClinicOrHome) {
-        selectedModel = telehealthLabel;
-        inlineCareCards.forEach(c => c.classList.remove('selected'));
-        const target = inlineCareCards[2] || document.querySelector(`.inline-care-card[data-value="${telehealthLabel}"]`);
-        if (target) target.classList.add('selected');
-        if (inlineCareInput) inlineCareInput.value = telehealthLabel;
       }
     } else if (isClinicOrHome) {
       hoursString = window.practiceHoursConfig?.clinicHours || '';
@@ -800,14 +805,6 @@ function initBookingModal() {
       } else {
         hoursString = window.practiceHoursConfig?.telehealthHours || '2 PM - 7 PM';
       }
-
-      if (isClinicOrHome) {
-        selectedModel = telehealthLabel;
-        careCards.forEach(c => c.classList.remove('selected'));
-        const target = careCards[2] || document.querySelector(`.care-option-card[data-value="${telehealthLabel}"]`);
-        if (target) target.classList.add('selected');
-        if (selectedCareInput) selectedCareInput.value = telehealthLabel;
-      }
     } else if (isClinicOrHome) {
       hoursString = window.practiceHoursConfig?.clinicHours || '';
     } else {
@@ -844,6 +841,21 @@ function initBookingModal() {
       if (selected < nowMidnight) {
         showThemeToast('Appointments cannot be booked for past dates. Please select today or a future date.', 'warning');
         dateInput.value = todayStr;
+      } else if (selected.getDay() === 0) {
+        const currentModel = selectedCareInput ? selectedCareInput.value : 'In-Clinic';
+        const inClinicLabel = window.careModelNames?.inClinic || 'In-Clinic';
+        const homeLabel = window.careModelNames?.home || 'Home Visit';
+        const modelLower = (currentModel || '').toLowerCase();
+        const isClinicOrHome = currentModel === 'In-Clinic' || currentModel === inClinicLabel || currentModel === 'Home Visit' || currentModel === homeLabel || modelLower.includes('clinic') || modelLower.includes('home');
+
+        if (isClinicOrHome) {
+          const telehealthLabel = window.careModelNames?.telehealth || 'E-Appointments';
+          careCards.forEach(c => c.classList.remove('selected'));
+          const target = Array.from(careCards).find(c => c.getAttribute('data-value') === telehealthLabel || c.querySelector('.care-option-title')?.textContent?.trim() === telehealthLabel) || careCards[2] || careCards[0];
+          if (target) target.classList.add('selected');
+          if (selectedCareInput) selectedCareInput.value = telehealthLabel;
+          showThemeToast('Physical clinic & Home Visits are closed on Sundays. Switched to E-Appointments for Sunday care.', 'info');
+        }
       }
       updateTimeSlotOptions();
     });
@@ -865,6 +877,21 @@ function initBookingModal() {
       val = target.getAttribute('data-value') || val;
     }
     if (selectedCareInput) selectedCareInput.value = val;
+
+    const inClinicLabel = window.careModelNames?.inClinic || 'In-Clinic';
+    const homeLabel = window.careModelNames?.home || 'Home Visit';
+    const valLower = (val || '').toLowerCase();
+    const isClinicOrHome = val === 'In-Clinic' || val === inClinicLabel || val === 'Home Visit' || val === homeLabel || valLower.includes('clinic') || valLower.includes('home');
+
+    if (dateInput && dateInput.value) {
+      const dObj = new Date(dateInput.value + 'T00:00:00');
+      if (!isNaN(dObj.getTime()) && dObj.getDay() === 0 && isClinicOrHome) {
+        const nextWeekday = getNextWeekdayDateStr(dateInput.value);
+        dateInput.value = nextWeekday;
+        showThemeToast('Physical clinic is closed on Sundays. Date updated to Monday for your ' + val + ' appointment.', 'info');
+      }
+    }
+
     updateTimeSlotOptions();
     handleHomeVisitEligibility(bookingForm);
   }
@@ -1220,3 +1247,114 @@ document.addEventListener('input', function(e) {
     if (form) handleHomeVisitEligibility(form);
   }
 });
+
+/* ==========================================================================
+   Concierge Plan Subscription Modal Handler
+   ========================================================================== */
+function initConciergeSubscriptionModal() {
+  const modalBackdrop = document.getElementById('conciergeModal');
+  const closeBtn = document.getElementById('closeConciergeModal');
+  const form = document.getElementById('conciergeSubscriptionForm');
+  const planBadge = document.getElementById('conciergeModalPlanBadge');
+  const planNameDisplay = document.getElementById('conciergePlanDisplayName');
+  const hiddenPlanInput = document.getElementById('conciergeSelectedPlan');
+  const hiddenPriceInput = document.getElementById('conciergeSelectedPrice');
+  const submitBtn = document.getElementById('conciergeSubmitBtn');
+
+  if (!modalBackdrop) return;
+
+  const openModalForPlan = (planName, planPrice) => {
+    if (planBadge) planBadge.textContent = '💎 ' + planName;
+    if (planNameDisplay) planNameDisplay.textContent = planName + (planPrice ? ' (' + planPrice + ')' : '');
+    if (hiddenPlanInput) hiddenPlanInput.value = planName;
+    if (hiddenPriceInput) hiddenPriceInput.value = planPrice || '';
+    modalBackdrop.classList.add('active');
+  };
+
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.js-open-concierge-modal');
+    if (btn) {
+      e.preventDefault();
+      const planName = btn.getAttribute('data-plan-name') || 'Gold Plan';
+      const planPrice = btn.getAttribute('data-plan-price') || '';
+      openModalForPlan(planName, planPrice);
+    }
+  });
+
+  const closeModal = () => {
+    modalBackdrop.classList.remove('active');
+  };
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  modalBackdrop.addEventListener('click', (e) => {
+    if (e.target === modalBackdrop) closeModal();
+  });
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const nameVal = document.getElementById('conciergePatientName')?.value.trim();
+      const phoneVal = document.getElementById('conciergePatientPhone')?.value.trim();
+      const emailVal = document.getElementById('conciergePatientEmail')?.value.trim();
+      const planVal = hiddenPlanInput ? hiddenPlanInput.value : 'Gold Plan';
+      const priceVal = hiddenPriceInput ? hiddenPriceInput.value : '';
+      const notesVal = document.getElementById('conciergePatientNotes')?.value.trim();
+
+      if (!nameVal || !phoneVal || !emailVal) {
+        showThemeAlert('Required Fields Missing', 'Please fill out your Name, Phone Number, and Email Address.', 'warning');
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '⏳ Submitting Membership Request...';
+      }
+
+      const tokenInput = form.querySelector('input[name="_token"]') || document.querySelector('meta[name="csrf-token"]');
+      const csrfToken = tokenInput ? (tokenInput.value || tokenInput.getAttribute('content') || '') : '';
+
+      fetch('/concierge/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': csrfToken,
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          patient_name: nameVal,
+          patient_phone: phoneVal,
+          patient_email: emailVal,
+          plan_name: planVal,
+          plan_price: priceVal,
+          patient_notes: notesVal
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          closeModal();
+          form.reset();
+          showThemeAlert(
+            'Request Received!',
+            data.message || "Your Concierge Plan subscription inquiry has been sent successfully! Dr. Ngomba's medical team will contact you shortly.",
+            'success'
+          );
+        } else {
+          showThemeAlert('Error', data.message || 'Failed to submit inquiry. Please try again.', 'error');
+        }
+      })
+      .catch(err => {
+        console.error('Concierge subscription error:', err);
+        showThemeAlert('Network Error', 'An unexpected error occurred. Please check your connection and try again.', 'error');
+      })
+      .finally(() => {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '📩 Submit Membership Inquiry';
+        }
+      });
+    });
+  }
+}

@@ -980,6 +980,33 @@
           </div>
         </div>
 
+        <!-- Concierge Medicine Accordion -->
+        <div class="nav-accordion {{ Request::routeIs('admin.concierge.*') ? 'open' : '' }}">
+          <button class="nav-accordion-header {{ Request::routeIs('admin.concierge.*') ? 'active' : '' }}" type="button">
+            <span class="nav-accordion-title"><i class="fa-solid fa-gem icon"></i> Concierge Medicine</span>
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="nav-accordion-body">
+            <div class="nav-accordion-body-inner">
+              <a href="{{ route('admin.concierge.hero') }}" class="nav-subitem {{ Request::routeIs('admin.concierge.hero') ? 'active' : '' }}">
+                <i class="fa-solid fa-wand-magic-sparkles subicon"></i> Hero Section
+              </a>
+              <a href="{{ route('admin.concierge.rates') }}" class="nav-subitem {{ Request::routeIs('admin.concierge.rates') ? 'active' : '' }}">
+                <i class="fa-solid fa-tags subicon"></i> Standard Rates & Tip
+              </a>
+              <a href="{{ route('admin.concierge.plans') }}" class="nav-subitem {{ Request::routeIs('admin.concierge.plans') ? 'active' : '' }}">
+                <i class="fa-solid fa-layer-group subicon"></i> Membership Tiers
+              </a>
+              <a href="{{ route('admin.concierge.faq') }}" class="nav-subitem {{ Request::routeIs('admin.concierge.faq') ? 'active' : '' }}">
+                <i class="fa-solid fa-circle-question subicon"></i> FAQs & Facility Info
+              </a>
+              <a href="{{ route('admin.concierge.cta') }}" class="nav-subitem {{ Request::routeIs('admin.concierge.cta') ? 'active' : '' }}">
+                <i class="fa-solid fa-bullseye subicon"></i> Bottom Callout Banner
+              </a>
+            </div>
+          </div>
+        </div>
+
         <!-- WEBSITE SECTION -->
         <div class="nav-group-label">WEBSITE</div>
 
