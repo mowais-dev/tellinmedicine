@@ -54,6 +54,8 @@
 
   @include('partials.booking-modal')
 
+  @include('partials.concierge-modal')
+
   @include('partials.chat-widget')
 
   <!-- Scripts -->

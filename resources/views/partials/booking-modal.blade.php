@@ -46,7 +46,7 @@
         </div>
 
         <div class="standard-booking-fields">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="booking-grid-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
             <div class="form-group">
               <label class="form-label">{{ $globalSettings['booking_label_name'] ?? '' }}</label>
               <input type="text" id="patientName" name="patient_name" class="clay-input" placeholder="{{ $globalSettings['booking_placeholder_name'] ?? '' }}" required>
@@ -57,7 +57,7 @@
             </div>
           </div>
 
-          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+          <div class="booking-grid-row" style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
             <div class="form-group">
               <label class="form-label">{{ $globalSettings['booking_label_email'] ?? '' }}</label>
               <input type="email" id="patientEmail" name="patient_email" class="clay-input" placeholder="{{ $globalSettings['booking_placeholder_email'] ?? '' }}" required>
@@ -68,7 +68,7 @@
             </div>
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="booking-grid-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
             <div class="form-group">
               <label class="form-label">{{ $globalSettings['booking_label_date'] ?? '' }}</label>
               <input type="date" id="bookDate" name="appointment_date" class="clay-input" min="{{ date('Y-m-d') }}" required>

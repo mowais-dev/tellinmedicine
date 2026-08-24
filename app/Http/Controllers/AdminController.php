@@ -536,6 +536,37 @@ class AdminController extends Controller
         return view('admin.philosophy.pillars', compact('pillars', 'settings'));
     }
 
+    // Concierge Medicine Subpage Views
+    public function conciergeHero()
+    {
+        $hero = HeroSection::firstOrCreate(['page' => 'concierge']);
+        return view('admin.concierge.hero', compact('hero'));
+    }
+
+    public function conciergeRates()
+    {
+        $settings = Setting::all()->pluck('value', 'key');
+        return view('admin.concierge.rates', compact('settings'));
+    }
+
+    public function conciergePlans()
+    {
+        $settings = Setting::all()->pluck('value', 'key');
+        return view('admin.concierge.plans', compact('settings'));
+    }
+
+    public function conciergeFaq()
+    {
+        $settings = Setting::all()->pluck('value', 'key');
+        return view('admin.concierge.faq', compact('settings'));
+    }
+
+    public function conciergeCta()
+    {
+        $settings = Setting::all()->pluck('value', 'key');
+        return view('admin.concierge.cta', compact('settings'));
+    }
+
     // Meet Dr. Ngomba Subpage Views
     public function doctorProfile()
     {

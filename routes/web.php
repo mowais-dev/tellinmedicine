@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ConciergeSubscriptionController;
 use App\Http\Controllers\Admin\AdminLoginController;
 
 // Public Website Routes
@@ -23,6 +24,9 @@ Route::get('/concierge.html', [PageController::class, 'concierge']);
 
 // Appointment Booking Endpoint
 Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
+
+// Concierge Subscription Inquiry Endpoint
+Route::post('/concierge/subscribe', [ConciergeSubscriptionController::class, 'store'])->name('concierge.subscribe');
 
 // AI Chat Messaging Endpoint
 Route::post('/chat/message', [ChatController::class, 'sendMessage'])->name('chat.message');
@@ -66,6 +70,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/philosophy/hero', [AdminController::class, 'philosophyHero'])->name('philosophy.hero');
         Route::get('/philosophy/article', [AdminController::class, 'philosophyArticle'])->name('philosophy.article');
         Route::get('/philosophy/pillars', [AdminController::class, 'philosophyPillars'])->name('philosophy.pillars');
+
+        // Concierge Medicine Submenus
+        Route::get('/concierge/hero', [AdminController::class, 'conciergeHero'])->name('concierge.hero');
+        Route::get('/concierge/rates', [AdminController::class, 'conciergeRates'])->name('concierge.rates');
+        Route::get('/concierge/plans', [AdminController::class, 'conciergePlans'])->name('concierge.plans');
+        Route::get('/concierge/faq', [AdminController::class, 'conciergeFaq'])->name('concierge.faq');
+        Route::get('/concierge/cta', [AdminController::class, 'conciergeCta'])->name('concierge.cta');
 
         // Meet Dr. Ngomba Submenus
         Route::get('/doctor/profile', [AdminController::class, 'doctorProfile'])->name('doctor.profile');

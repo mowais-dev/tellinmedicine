@@ -94,6 +94,40 @@
     </div>
   </section>
 
+  <!-- Concierge Medicine Teaser Banner Section (Full Width, Increase Height, Gold Hover) -->
+  <section id="concierge-banner" class="concierge-teaser-section">
+    <a href="{{ url('/concierge') }}" class="concierge-teaser-card">
+      <div class="teaser-content-wrapper">
+        
+        <!-- Left Column: Icon + Text -->
+        <div class="teaser-left">
+          <div class="teaser-icon-box">
+            {{ $globalSettings['home_concierge_icon'] ?? '💎' }}
+          </div>
+          <div class="teaser-text-box">
+            <span class="teaser-badge">
+              {{ $globalSettings['home_concierge_badge'] ?? 'VIP CARE MEMBERSHIP' }}
+            </span>
+            <h3 class="teaser-title">
+              {{ $globalSettings['home_concierge_title'] ?? 'Concierge Medicine & Direct Primary Care' }}
+            </h3>
+            <p class="teaser-subtitle">
+              {{ $globalSettings['home_concierge_subtitle'] ?? 'Unlimited office visits, 24/7 direct physician access, zero wait times & annual wellness packages.' }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Column: Button -->
+        <div class="teaser-right">
+          <span class="clay-button clay-button-secondary teaser-btn">
+            <span>{{ $globalSettings['home_concierge_btn_text'] ?? 'Explore Concierge Plans' }}</span> ➔
+          </span>
+        </div>
+
+      </div>
+    </a>
+  </section>
+
   <!-- Practice Working Hours & Availability Schedule Section -->
   <section id="hours" class="hours-section">
     <div class="container">
@@ -400,40 +434,6 @@
       @endif
 
     </div>
-  </section>
-
-  <!-- Concierge Medicine Teaser Banner Section (Full Width, Increase Height, Gold Hover) -->
-  <section id="concierge-banner" class="concierge-teaser-section">
-    <a href="{{ url('/concierge') }}" class="concierge-teaser-card">
-      <div class="teaser-content-wrapper">
-        
-        <!-- Left Column: Icon + Text -->
-        <div class="teaser-left">
-          <div class="teaser-icon-box">
-            💎
-          </div>
-          <div class="teaser-text-box">
-            <span class="teaser-badge">
-              VIP CARE MEMBERSHIP
-            </span>
-            <h3 class="teaser-title">
-              Concierge Medicine & Direct Primary Care
-            </h3>
-            <p class="teaser-subtitle">
-              Unlimited office visits, 24/7 direct physician access, zero wait times & annual wellness packages.
-            </p>
-          </div>
-        </div>
-
-        <!-- Right Column: Button -->
-        <div class="teaser-right">
-          <span class="clay-button clay-button-secondary teaser-btn">
-            <span>Explore Concierge Plans</span> ➔
-          </span>
-        </div>
-
-      </div>
-    </a>
   </section>
 
   <!-- Contact & Location Section -->
