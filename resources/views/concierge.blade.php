@@ -278,20 +278,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Exclusions & Payment Terms Note -->
-      <div class="clay-card concierge-terms-card mt-5 p-4">
-        <div class="terms-grid">
-          <div class="terms-item">
-            <span class="terms-icon">⚠️</span>
-            <p><strong>Exclusions Note:</strong> {{ $globalSettings['concierge_exclusions_note'] ?? 'Does not cover ER visit, Acute Hospital, Rehab, or Radiology or Lab Test.' }}</p>
-          </div>
-          <div class="terms-item">
-            <span class="terms-icon">💳</span>
-            <p><strong>Flexible Payments:</strong> {{ $globalSettings['concierge_payment_note'] ?? 'Major Credit cards and cash are accepted; Payment Plans are available!' }}</p>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
