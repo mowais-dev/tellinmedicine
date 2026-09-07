@@ -3124,8 +3124,8 @@ body.swal2-overflow-hidden {
 
 /* Pricing Plans Section & Grid */
 .concierge-plans-section {
-  margin-top: 5.5rem;
-  margin-bottom: 5.5rem;
+  margin-top: 4rem;
+  margin-bottom: 1.75rem !important;
   position: relative;
   clear: both;
 }
@@ -3135,7 +3135,7 @@ body.swal2-overflow-hidden {
   grid-template-columns: repeat(3, 1fr);
   gap: 2.25rem;
   margin-top: 3rem;
-  margin-bottom: 3.5rem;
+  margin-bottom: 0 !important;
   align-items: stretch;
 }
 
@@ -3309,15 +3309,15 @@ body.swal2-overflow-hidden {
 
 /* FAQ Section Layout & Enhanced Cards with Generous Spacing */
 .concierge-faq-section {
-  margin-top: 6rem !important;
-  margin-bottom: 6rem !important;
-  padding-top: 2rem !important;
+  margin-top: 1rem !important;
+  margin-bottom: 4.5rem !important;
+  padding-top: 0 !important;
   position: relative;
   clear: both;
 }
 
 .concierge-faq-section .section-header {
-  margin-bottom: 4rem !important;
+  margin-bottom: 2.25rem !important;
 }
 
 .faq-grid {
